@@ -1,12 +1,10 @@
 import 'package:chat_app/widgets/messages.dart';
 import 'package:chat_app/widgets/new_message.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({Key? key}) : super(key: key);
-  final FirebaseFirestore _store = FirebaseFirestore.instance;
+  const ChatScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class ChatScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(child: Messages()),
-            NewMessages(),
+            const NewMessages(),
           ],
         ),
       ),

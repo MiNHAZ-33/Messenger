@@ -1,11 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubbles extends StatelessWidget {
-  MessageBubbles({Key? key, required this.message, required this.isMe})
+  MessageBubbles(
+      {Key? key,
+      required this.message,
+      required this.isMe,
+      required this.userIds})
       : super(key: key);
 
   final String message;
   final bool isMe;
+  final String userIds;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,9 @@ class MessageBubbles extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: isMe ? Colors.grey : Theme.of(context).accentColor,
+            color: isMe
+                ? Color.fromARGB(255, 60, 212, 250)
+                : Theme.of(context).accentColor,
             borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(10),
               topRight: const Radius.circular(10),
@@ -27,11 +35,39 @@ class MessageBubbles extends StatelessWidget {
           width: 140,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-          child: Text(
-            message,
-            style: TextStyle(
-              color: isMe ? Colors.black : Color.fromARGB(255, 255, 239, 239),
-            ),
+          child: Column(
+            crossAxisAlignment:
+                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              FutureBuilder(
+                  future: FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(userIds)
+                      .get(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasError || snapshot.data == null) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    return Text(
+                      snapshot.data['username'],
+                      style: TextStyle(
+                          color: isMe
+                              ? Colors.black
+                              : Color.fromARGB(255, 255, 239, 239),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    );
+                  }),
+              Text(
+                message,
+                style: TextStyle(
+                  fontSize: 18,
+                  color:
+                      isMe ? Colors.black : Color.fromARGB(255, 255, 239, 239),
+                ),
+              ),
+            ],
           ),
         ),
       ],

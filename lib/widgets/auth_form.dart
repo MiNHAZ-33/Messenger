@@ -44,7 +44,7 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -55,10 +55,10 @@ class _AuthFormState extends State<AuthForm> {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Form(
               key: _formKey,
               child: Column(
@@ -66,7 +66,7 @@ class _AuthFormState extends State<AuthForm> {
                 children: [
                   TextFormField(
                     controller: _emailController,
-                    key: ValueKey('email'),
+                    key: const ValueKey('email'),
                     validator: (value) {
                       if (value!.isEmpty || !value.contains('@')) {
                         return 'Please enter a valid email address';
@@ -74,7 +74,7 @@ class _AuthFormState extends State<AuthForm> {
                       return null;
                     },
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Email address',
                     ),
                     onSaved: (value) {
@@ -84,8 +84,8 @@ class _AuthFormState extends State<AuthForm> {
                   if (!isLogin)
                     TextFormField(
                       controller: _userNameController,
-                      key: ValueKey('user name'),
-                      decoration: InputDecoration(
+                      key: const ValueKey('user name'),
+                      decoration: const InputDecoration(
                         labelText: 'User name',
                       ),
                       validator: (value) {
@@ -100,9 +100,9 @@ class _AuthFormState extends State<AuthForm> {
                     ),
                   TextFormField(
                     controller: _passwordController,
-                    key: ValueKey('Pass word'),
+                    key: const ValueKey('Pass word'),
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Password',
                     ),
                     validator: (value) {
@@ -115,16 +115,16 @@ class _AuthFormState extends State<AuthForm> {
                       _password = value!;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   widget.isLoading
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : ElevatedButton(
                           onPressed: _trySubmit,
                           child: Text(isLogin ? 'Log in' : 'Sign up'),
                         ),
-                  FlatButton(
+                   FlatButton(
                     onPressed: () {
                       setState(() {
                         isLogin = !isLogin;
