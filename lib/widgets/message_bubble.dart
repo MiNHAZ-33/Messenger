@@ -6,12 +6,12 @@ class MessageBubbles extends StatelessWidget {
       {Key? key,
       required this.message,
       required this.isMe,
-      required this.userIds})
+      required this.userName})
       : super(key: key);
 
   final String message;
   final bool isMe;
-  final String userIds;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -39,26 +39,15 @@ class MessageBubbles extends StatelessWidget {
             crossAxisAlignment:
                 isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
-              FutureBuilder(
-                  future: FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(userIds)
-                      .get(),
-                  builder: (context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasError || snapshot.data == null) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    return Text(
-                      snapshot.data['username'],
-                      style: TextStyle(
-                          color: isMe
-                              ? Colors.black
-                              : Color.fromARGB(255, 255, 239, 239),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    );
-                  }),
+              Text(
+                userName,
+                style: TextStyle(
+                    color: isMe
+                        ? Colors.black
+                        : Color.fromARGB(255, 255, 239, 239),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
               Text(
                 message,
                 style: TextStyle(
