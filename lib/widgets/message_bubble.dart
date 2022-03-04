@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class MessageBubbles extends StatelessWidget {
   MessageBubbles(
@@ -19,6 +22,8 @@ class MessageBubbles extends StatelessWidget {
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
+          constraints: BoxConstraints(maxWidth: 300),
+
           decoration: BoxDecoration(
             color: isMe
                 ? Color.fromARGB(255, 60, 212, 250)
@@ -32,7 +37,7 @@ class MessageBubbles extends StatelessWidget {
                   !isMe ? const Radius.circular(10) : const Radius.circular(0),
             ),
           ),
-          width: 140,
+          //width: 280,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           child: Column(
